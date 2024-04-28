@@ -46,16 +46,19 @@ public class CompilationResult {
                 JsonObject contractJsonObject =
                         asJsonObject.get(contract.toString()).getAsJsonObject();
                 JsonObject abiObject = new JsonObject();
-                abiObject.addProperty("abi", contractJsonObject.get("abi").toString());
-                abiObject.addProperty("bin", contractJsonObject.get("bin").getAsString());
-                abiObject.addProperty("metadata", contractJsonObject.get("metadata").getAsString());
+                abiObject.addProperty("abi", getJsonValueAsString(contractJsonObject, "abi"));
+                abiObject.addProperty("bin", getJsonValueAsString(contractJsonObject, "bin"));
+                abiObject.addProperty(
+                        "metadata", getJsonValueAsString(contractJsonObject, "metadata"));
 
                 if (contractJsonObject.get("userdoc") != null) {
-                    abiObject.addProperty("userdoc", contractJsonObject.get("userdoc").toString());
+                    abiObject.addProperty(
+                            "userdoc", getJsonValueAsString(contractJsonObject, "userdoc"));
                 }
 
                 if (contractJsonObject.get("devdoc") != null) {
-                    abiObject.addProperty("devdoc", contractJsonObject.get("devdoc").toString());
+                    abiObject.addProperty(
+                            "devdoc", getJsonValueAsString(contractJsonObject, "devdoc"));
                 }
                 contractObject.add(contract.toString(), abiObject);
             }
@@ -63,6 +66,18 @@ public class CompilationResult {
             result.addProperty("version", jsonObject.get("version").getAsString());
             return objectMapper.readValue(result.toString(), CompilationResult.class);
         }
+    }
+
+    private static String getJsonValueAsString(JsonObject jsonObject, String key) {
+        if (jsonObject == null || jsonObject.get(key) == null || jsonObject.get(key).isJsonNull()) {
+            return null;
+        }
+
+        if (jsonObject.get(key).isJsonPrimitive()) {
+            return jsonObject.get(key).getAsString();
+        }
+
+        return jsonObject.get(key).toString();
     }
 
     /**
