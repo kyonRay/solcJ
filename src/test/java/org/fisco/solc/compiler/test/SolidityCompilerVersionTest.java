@@ -13,6 +13,10 @@ public class SolidityCompilerVersionTest {
         Assert.assertTrue(versionOutput0.contains("0.8.26"));
         Assert.assertTrue(versionOutput0.toLowerCase().contains("gm"));
 
+        String versionOutput = SolidityCompiler.runGetVersionOutput(true, Version.V0_8_11);
+        Assert.assertTrue(versionOutput.contains("0.8.11"));
+        Assert.assertTrue(versionOutput.toLowerCase().contains("gm"));
+
         String versionOutput2 = SolidityCompiler.runGetVersionOutput(true, Version.V0_6_10);
         Assert.assertTrue(versionOutput2.contains("0.6.10"));
         Assert.assertTrue(versionOutput2.toLowerCase().contains("gm"));
