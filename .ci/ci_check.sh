@@ -3,4 +3,4 @@
 set -e
 
 bash gradlew verifyGoogleJavaFormat
-bash gradlew build --info
+bash gradlew build

@@ -21,9 +21,8 @@ public class Solc {
             if (solc == null || !solc.exists()) {
                 initDefaultBundled(sm, version);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.error(" Can't init solc compiler, e: ", e);
-            e.printStackTrace();
             throw new RuntimeException("Can't init solc compiler: ", e);
         }
     }
