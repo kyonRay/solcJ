@@ -62,8 +62,7 @@ public class SolcTest {
             Assert.assertNotNull(solc);
             Assert.assertTrue(solc.getExecutable().exists());
             Assert.assertTrue(solc.getExecutable().canExecute());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
